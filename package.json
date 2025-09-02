@@ -1,0 +1,38 @@
+{
+  "name": "photo-graphy-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "nodemon src/index.js",
+    "lint": "eslint src/**/*.js",
+    "start": "node ./src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/oksana12345678/photo-graphy-backend.git"
+  },
+  "keywords": [],
+  "author": "OKSANA TANASHCHUK",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/oksana12345678/photo-graphy-backend/issues"
+  },
+  "homepage": "https://github.com/oksana12345678/photo-graphy-backend#readme",
+  "devDependencies": {
+    "@eslint/js": "^9.34.0",
+    "eslint": "^9.34.0",
+    "globals": "^16.3.0",
+    "nodemon": "^3.1.10",
+    "pino-pretty": "^13.1.1"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dayjs": "^1.11.15",
+    "dotenv": "^17.2.1",
+    "express": "^5.1.0",
+    "mongoose": "^8.18.0",
+    "pino-http": "^10.5.0"
+  }
+}
