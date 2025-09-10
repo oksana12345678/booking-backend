@@ -5,9 +5,30 @@ import {
 } from '../services/booking.js';
 import { getAllSchedules } from '../services/schedule.js';
 import dayjs from 'dayjs';
+import { saveFileToCloudinary } from '../utils/saveFileToCloudinary.js';
+import saveFileToUploadDir from '../utils/saveFileToUploadDir.js';
+import { env } from '../utils/env.js';
 
 export const createBookingRequestController = async (req, res) => {
   const { email } = req.body;
+  const photo = req.file;
+  let photoUrl;
+
+  if (photo) {
+    if (env('ENABLE_CLOUDINARY') === 'true') {
+      photoUrl = await saveFileToCloudinary(photo);
+      console.log('cloud', photoUrl);
+    } else {
+      photoUrl = await saveFileToUploadDir(photo);
+      console.log('dir', photoUrl);
+    }
+  }
+  console.log('out', photoUrl);
+
+  const data = {
+    ...req.body,
+    photo: photoUrl,
+  };
 
   const existingBookingByEmail = await getBookingByEmail(email);
 
@@ -18,7 +39,7 @@ export const createBookingRequestController = async (req, res) => {
     });
   }
 
-  const booking = await createBookingRequest(req.body);
+  const booking = await createBookingRequest(data);
 
   res.status(201).json({
     success: true,
@@ -78,7 +99,7 @@ export const getBookedCalendarController = async (req, res) => {
           time: hoursWithStatus,
         };
       })
-      .filter((schedule) => schedule.time.some((t) => !t.booked)); 
+      .filter((schedule) => schedule.time.some((t) => !t.booked));
     res.status(200).json({
       data: updatedSchedule,
     });

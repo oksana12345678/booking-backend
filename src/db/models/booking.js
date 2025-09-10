@@ -15,10 +15,6 @@ const BookingSchema = new Schema(
       type: String,
       default: null,
     },
-    photoSessions: {
-      type: String,
-      default: null,
-    },
     sessionDate: {
       type: Date,
       default: null,
@@ -27,7 +23,11 @@ const BookingSchema = new Schema(
       type: String,
       default: null,
     },
-    location: {
+    sessionType: {
+      type: String,
+      default: null,
+    },
+    photo: {
       type: String,
       default: null,
     },
